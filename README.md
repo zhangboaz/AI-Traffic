@@ -4,7 +4,7 @@
 
 ## 城市交通建模
 
-<img src="E:\Projects\AI-Traffic\docs\idea.drawio.png" alt="idea.drawio" style="zoom:80%;" />
+<img src="https://github.com/zhangboaz/AI-Traffic/blob/main/docs/idea.drawio.png" style="zoom:80%;" />
 
 * 机动车辆位置、行人位置、红绿灯状态及唯一标识
 * 确定城市大小，等比例缩放，使用坐标轴（x，y）表示机动车辆位置、行人位置
