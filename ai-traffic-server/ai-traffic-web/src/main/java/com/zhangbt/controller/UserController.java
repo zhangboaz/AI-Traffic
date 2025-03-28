@@ -2,6 +2,7 @@ package com.zhangbt.controller;
 
 import com.zhangbt.common.properties.JwtProperties;
 import com.zhangbt.common.result.Result;
+import com.zhangbt.common.utils.CustomCache;
 import com.zhangbt.common.utils.JwtUtil;
 import com.zhangbt.dao.UserMapper;
 import com.zhangbt.domain.dto.UserLoginDTO;
@@ -28,6 +29,8 @@ public class UserController {
 
     private final JwtProperties jwtProperties;
 
+    private final CustomCache<String, Object> customCache;
+
     @PostMapping("/login")
     public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO) {
         log.info("用户登录：{}", userLoginDTO);
@@ -43,12 +46,15 @@ public class UserController {
                 claims
         );
 
+
         UserLoginVO userLoginVO = UserLoginVO.builder()
                 .Id(userEntity.getId())
                 .username(userEntity.getUsername())
                 .name(userEntity.getName())
                 .token(token)
                 .build();
+        customCache.put("user", userLoginVO, 5000);
+        log.info("cache值:{}", customCache.get("user").toString());
 
         return Result.success(userLoginVO);
     }
