@@ -4,7 +4,6 @@ import com.zhangbt.common.properties.JwtProperties;
 import com.zhangbt.common.result.Result;
 import com.zhangbt.common.utils.CustomCache;
 import com.zhangbt.common.utils.JwtUtil;
-import com.zhangbt.dao.UserMapper;
 import com.zhangbt.domain.dto.UserLoginDTO;
 import com.zhangbt.domain.entity.UserEntity;
 import com.zhangbt.domain.vo.UserLoginVO;

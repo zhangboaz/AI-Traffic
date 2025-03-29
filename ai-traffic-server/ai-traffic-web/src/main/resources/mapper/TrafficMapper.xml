@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhangbt.dao.TrafficMapper">
+
+    <insert id="storeTrafficData">
+        INSERT INTO traffic_data (location_code, location_description, timestamp, vehicle_count, avg_speed, longitude,
+                                  latitude, traffic_status)
+        VALUES (#{locationCode}, #{locationDescription}, #{timestamp}, #{vehicleCount}, #{avgSpeed},
+                #{coordinates.longitude}, #{coordinates.latitude}, #{trafficStatus})
+    </insert>
+    <select id="getTrafficData" resultType="com.zhangbt.domain.vo.TrafficVO">
+        SELECT * FROM traffic_data
+        <where>
+            <if test="locationCode != null and locationCode != ''">
+                AND location_code = #{locationCode}
+            </if>
+
+            <if test="timestamp != null">
+                <!-- 精确匹配时间戳 -->
+                AND timestamp = #{timestamp}
+                <!-- 或者范围查询 -->
+                <!-- AND timestamp BETWEEN #{startTime} AND #{endTime} -->
+            </if>
+
+            <if test="coordinates != null">
+                <if test="coordinates.longitude != null">
+                    AND longitude = #{coordinates.longitude}
+                </if>
+                <if test="coordinates.latitude != null">
+                    AND latitude = #{coordinates.latitude}
+                </if>
+                <!-- 或者地理空间查询（MySQL示例） -->
+                <!-- AND ST_Distance_Sphere(
+                    point(longitude, latitude),
+                    point(#{coordinates.longitude}, #{coordinates.latitude})
+                    ) &lt; 1000  -->
+            </if>
+        </where>
+        ORDER BY timestamp DESC
+    </select>
+</mapper>

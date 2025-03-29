@@ -12,6 +12,6 @@ public class CacheConfig {
     @Bean
     public CustomCache<String, Object> customCache() {
         log.info("配置CustomCache");
-        return new CustomCache<>(3);
+        return new CustomCache<>(10000);
     }
 }
